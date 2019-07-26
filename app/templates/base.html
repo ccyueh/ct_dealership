@@ -1,0 +1,128 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+  Twitter Commerce - {{ title }}
+{% endblock %}
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="../static/css/main.css">
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}
+
+{% block navbar %}
+  <div class="row">
+    <div class="col-md-12">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ url_for('index') }}">Twitter</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            {% if title == 'Home' %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+              <a class="nav-link" href="{{ url_for('index') }}">Home <span class="sr-only">(current)</span></a>
+            </li>
+
+            {% if title == 'Checkout' %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+              <a class="nav-link" href="{{ url_for('checkout')}}">Checkout</a>
+            </li>
+
+            {% if title == 'Change Title' %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+              <a class="nav-link" href="{{ url_for('title')}}">Change Title</a>
+            </li>
+
+          <!-- if user logged out, hide profile and logout, otherwise show -->
+            {% if current_user.is_authenticated %}
+              {% if title == 'Profile' %}
+              <li class="nav-item active">
+              {% else %}
+              <li class="nav-item">
+              {% endif %}
+                <a class="nav-link" href="{{ url_for('profile', username=current_user.usename)}}">Profile</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+              </li>
+
+            {% else %}
+
+              {% if title == 'Login' %}
+              <li class="nav-item active">
+              {% else %}
+              <li class="nav-item">
+              {% endif %}
+                <a class="nav-link" href="{{ url_for('login')}}">Login</a>
+              </li>
+
+              {% if title == 'Register' %}
+              <li class="nav-item active">
+              {% else %}
+              <li class="nav-item">
+              {% endif %}
+                <a class="nav-link" href="{{ url_for('register')}}">Register</a>
+              </li>
+
+            {% endif %} <!-- ends authentication statement -->
+
+            {% if title == 'Contact Us' %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+              <a class="nav-link" href="{{ url_for('contact')}}">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div> <!-- ends col 12 for nav -->
+  </div> <!-- ends row for nav -->
+{% endblock %}
+
+{% block content %}
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <script type="text/javascript">
+          alert(`{{ message }}`);
+        </script>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <main>
+    <div class="container">
+      {% block app_content %}{% endblock %}
+    </div>
+  </main>
+
+  <footer>
+    <div class="row">
+      <div class="col-md-4">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit incidunt ex cumque dolor odit eligendi maiores voluptate labore ipsum, deleniti, eius dolorem. Harum perferendis odio quos aut quidem, laudantium excepturi.</p>
+      </div>
+      <div class="col-md-4">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure asperiores esse id explicabo laborum doloribus rem similique, autem dolor, laudantium facilis cupiditate omnis, architecto eum iusto, officiis hic vitae laboriosam.</p>
+      </div>
+      <div class="col-md-4">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt provident, a libero cupiditate at aspernatur recusandae corrupti! Facilis iure suscipit pariatur odit, commodi. Iste ab nihil nulla sit enim et.</p>
+      </div>
+    </div>
+  </footer>
+{% endblock %}
