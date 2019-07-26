@@ -1,7 +1,7 @@
 {% extends 'bootstrap/base.html' %}
 
 {% block title %}
-  Twitter Commerce - {{ title }}
+  Goodcar Dealership - {{ title }}
 {% endblock %}
 
 {% block styles %}
@@ -17,7 +17,7 @@
   <div class="row">
     <div class="col-md-12">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{ url_for('index') }}">Twitter</a>
+        <a class="navbar-brand" href="{{ url_for('index') }}">Goodcar Dealership</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -31,30 +31,30 @@
               <a class="nav-link" href="{{ url_for('index') }}">Home <span class="sr-only">(current)</span></a>
             </li>
 
-            {% if title == 'Checkout' %}
+            {% if title == 'Customer Lookup' %}
             <li class="nav-item active">
             {% else %}
             <li class="nav-item">
             {% endif %}
-              <a class="nav-link" href="{{ url_for('checkout')}}">Checkout</a>
+              <a class="nav-link" href="{{ url_for('customer')}}">Customer Lookup</a>
             </li>
 
-            {% if title == 'Change Title' %}
+            {% if title == 'Inventory' %}
             <li class="nav-item active">
             {% else %}
             <li class="nav-item">
             {% endif %}
-              <a class="nav-link" href="{{ url_for('title')}}">Change Title</a>
+              <a class="nav-link" href="{{ url_for('inventory')}}">Inventory</a>
             </li>
 
-          <!-- if user logged out, hide profile and logout, otherwise show -->
+          <!-- if user logged out, hide maintenance and logout, otherwise show -->
             {% if current_user.is_authenticated %}
-              {% if title == 'Profile' %}
+              {% if title == 'Maintenance' %}
               <li class="nav-item active">
               {% else %}
               <li class="nav-item">
               {% endif %}
-                <a class="nav-link" href="{{ url_for('profile', username=current_user.usename)}}">Profile</a>
+                <a class="nav-link" href="{{ url_for('maintenance')}}">Maintenance</a>
               </li>
 
               <li class="nav-item">
@@ -81,13 +81,6 @@
 
             {% endif %} <!-- ends authentication statement -->
 
-            {% if title == 'Contact Us' %}
-            <li class="nav-item active">
-            {% else %}
-            <li class="nav-item">
-            {% endif %}
-              <a class="nav-link" href="{{ url_for('contact')}}">Contact Us</a>
-            </li>
           </ul>
         </div>
       </nav>
@@ -112,17 +105,4 @@
     </div>
   </main>
 
-  <footer>
-    <div class="row">
-      <div class="col-md-4">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit incidunt ex cumque dolor odit eligendi maiores voluptate labore ipsum, deleniti, eius dolorem. Harum perferendis odio quos aut quidem, laudantium excepturi.</p>
-      </div>
-      <div class="col-md-4">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure asperiores esse id explicabo laborum doloribus rem similique, autem dolor, laudantium facilis cupiditate omnis, architecto eum iusto, officiis hic vitae laboriosam.</p>
-      </div>
-      <div class="col-md-4">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt provident, a libero cupiditate at aspernatur recusandae corrupti! Facilis iure suscipit pariatur odit, commodi. Iste ab nihil nulla sit enim et.</p>
-      </div>
-    </div>
-  </footer>
 {% endblock %}

@@ -8,37 +8,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 @app.route('/index')
 @app.route('/index/<header>', methods=['GET'])
 def index(header=''):
-    products = [
-        {
-            'id': 1001,
-            'title': 'Soap',
-            'price': '3.98',
-            'desc': 'Very clean soapy soap. Has soapness.'
-        },
-        {
-            'id': 1002,
-            'title': 'Grapes',
-            'price': '4.55',
-            'desc': 'This is a bundle of grapey grapes.'
-        },
-        {
-            'id': 1003,
-            'title': 'Laptop',
-            'price': '1100.99',
-            'desc': 'Great for laps and tops.'
-        },
-        {
-            'id': 1004,
-            'title': 'Chair',
-            'price': '114.45',
-            'desc': 'Great for sitting and standing on.'
-        }
-    ]
     return render_template('index.html', title='Home', products=products, header=header)
-
-@app.route('/checkout')
-def checkout():
-    return render_template('checkout.html', title='Checkout')
 
 @app.route('/title', methods=['GET', 'POST'])
 def title():
@@ -126,25 +96,6 @@ def contact():
         return redirect(url_for('contact'))
 
     return render_template('form.html', form=form, title='Contact Us')
-
-# temp variable for testing
-#posts = [
-    {
-        'post_id': 1,
-        'tweet': 'My favorite suit is spades.',
-        'date_posted': '7/17/2019'
-    },
-    {
-        'post_id': 2,
-        'tweet': 'My favorite color is green.',
-        'date_posted': '7/10/2019'
-    },
-    {
-        'post_id': 3,
-        'tweet': 'My favorite drink is coffee.',
-        'date_posted': '7/1/2019'
-    },\
-#]
 
 @login_required
 @app.route('/profile/<username>', methods=['GET', 'POST'])
