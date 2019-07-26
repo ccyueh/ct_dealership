@@ -47,3 +47,15 @@ class RegisterForm(FlaskForm):
 class PostForm(FlaskForm):
     tweet = StringField('What are you up to?', validators=[DataRequired()])
     submit = SubmitField('Tweet')
+
+class CustomerForm(FlaskForm):
+    first_name = StringField('First Name', validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
+    submit = SubmitField('Display Cars')
+
+class MaintenanceForm(FlaskForm):
+    car_id = StringField('Car ID', validators=[DataRequired()])
+    maintenance_desc = StringField('Description', validators=[DataRequired()])
+    staff_id = StringField('Staff ID', validators=[DataRequired()])
+    date_started = DateTimeField('Date Started', validators=[DataRequired()])
+    date_finished = DateTimeField('Date Finished')
