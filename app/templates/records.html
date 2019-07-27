@@ -1,0 +1,43 @@
+{% import 'bootstrap/wtf.html' as wtf %}
+{% extends 'base.html' %}
+
+{% block app_content %}
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1>{{ title }}</h1>
+        </div>
+    </div> <!-- ends row for title -->
+
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Maintenance ID</th> 
+            <th scope="col">Car ID</th>
+            <th scope="col">Description</th> 
+            <th scope="col">Staff ID</th> 
+            <th scope="col">Date Started</th> 
+            <th scope="col">Date Finished</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in rows %}
+            <tr>
+              <td>{{ row.maintenance_id }}</td>
+              <td>{{ row.car_id }}</td>
+              <td>{{ row.maintenance_desc }}</td>
+              <td>{{ row.staff_id }}</td>
+              <td>{{ row.date_started }}</td>
+              <td>{{ row.date_finished }}</td>
+            </tr> 
+          {% endfor %}
+        </tbody>
+      </table>
+      
+      <a href="{{ url_for('maintenance') }}">Return to Maintenance</a>
+    </div> <!-- ends row -->
+  </div> <!-- ends row -->
+
+    
+{% endblock %}

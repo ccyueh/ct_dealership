@@ -14,4 +14,13 @@
     </div>
   </div> <!-- ends row -->
 
+  {% if title == "Maintenance" %}
+    <div class="row">
+      <div class="col-md-4 offset-md-4">
+        <a href="{{ url_for('records') }}">Display Records</a>
+      </div>
+    </div> <!-- ends row -->
+
+  {% endif %}
+
 {% endblock %}

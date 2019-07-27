@@ -82,7 +82,6 @@ def inventory(first='Goodcar', last='Dealership', title='Inventory'):
 
 @login_required
 @app.route('/maintenance', methods=['GET', 'POST'])
-#@app.route('/maintenance/<username>', methods=['GET', 'POST'])
 def maintenance():
     form = MaintenanceForm()
 
@@ -99,9 +98,16 @@ def maintenance():
         db.session.commit()
         
         flash('Maintenance record added.')
-        return redirect(url_for('maintenance'))
+        return redirect(url_for('records'))
 
     return render_template('form.html', form=form, title='Maintenance')
+
+@login_required
+@app.route('/records', methods=['GET', 'POST'])
+def records():
+    rows = Maintenance.query.all()
+
+    return render_template('records.html', rows=rows, title='Maintenance Records')
 
 @app.route('/logout')
 def logout():
