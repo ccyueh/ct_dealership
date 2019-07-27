@@ -2,16 +2,38 @@
 {% extends 'base.html' %}
 
 {% block app_content %}
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1>{{ title }} for {{ first }} {{ last }}</h1>
+        </div>
+    </div> <!-- ends row for title -->
+
   <div class="row">
     <div class="col-md-8 offset-md-2">
-      {% for row in rows %}
-        <tr>
-          <td>{{ car.car_id }}</td>
-          <td>{{ car.make }}</td>
-          <td>{{ car.model }}</td>
-          <td>{{ car.year }}</td>
-        </tr> 
-      {% endfor %}
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Car ID</th> 
+            <th scope="col">Make</th> 
+            <th scope="col">Model</th> 
+            <th scope="col">Year</th> 
+          </tr>
+        </thead>
+        <tbody>
+          {% for car in rows %}
+            <tr>
+              <td>{{ car.car_id }}</td>
+              <td>{{ car.make }}</td>
+              <td>{{ car.model }}</td>
+              <td>{{ car.year }}</td>
+            </tr> 
+          {% endfor %}
+        </tbody>
+      </table>
+      
+      {% if title != "Inventory" %}
+        <a href="{{ url_for('customer') }}">Return to Customer Lookup</a>
+      {% endif %}
     </div> <!-- ends row -->
 
   </div> <!-- ends row -->

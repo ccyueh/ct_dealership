@@ -1,7 +1,7 @@
 from app import app, db
 from flask import render_template, url_for, redirect, flash
 from app.forms import LoginForm, RegisterForm, CustomerForm, MaintenanceForm
-from app.models import User, Maintenance, Car
+from app.models import User, Maintenance, Car, Account
 from flask_login import current_user, login_user, logout_user, login_required
 
 @app.route('/')
@@ -66,35 +66,39 @@ def customer():
     form = CustomerForm()
 
     if form.validate_on_submit():
-        return redirect(url_for('/inventory', first=first, last=last, title='Cars')
+        first = form.first_name.data
+        last = form.last_name.data
+        return redirect(url_for('inventory', first=first.title(), last=last.title(), title='Cars'))
 
     return render_template('form.html', form=form, title='Customer Lookup')
 
 @app.route('/inventory', methods=['GET', 'POST'])
+@app.route('/inventory/<first>-<last>-<title>', methods=['GET', 'POST'])
 def inventory(first='Goodcar', last='Dealership', title='Inventory'):
     
-    rows = Car.query.join(Account, Car.account_id == Account.account_id).filter(Account.first_name == first, Account.last_name == last)
+    rows = Car.query.join(Account, Car.account_id == Account.account_id).filter(Account.first_name == first, Account.last_name == last).order_by(Car.car_id)
 
     return render_template('inventory.html', rows=rows, first=first, last=last, title=title)
 
 @login_required
 @app.route('/maintenance', methods=['GET', 'POST'])
+#@app.route('/maintenance/<username>', methods=['GET', 'POST'])
 def maintenance():
     form = MaintenanceForm()
 
     if form.validate_on_submit():
         maintenance = Maintenance(
-            car_id = form.username.data,
+            car_id = form.car_id.data,
             maintenance_desc = form.maintenance_desc.data,
             staff_id = form.staff_id.data,
             date_started = form.date_started.data,
             date_finished = form.date_finished.data
         )
 
-        db.session.add(maintenance)
-    
+        db.session.add(maintenance)    
         db.session.commit()
-
+        
+        flash('Maintenance record added.')
         return redirect(url_for('maintenance'))
 
     return render_template('form.html', form=form, title='Maintenance')

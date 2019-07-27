@@ -1,8 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, IntegerField, TextAreaField, BooleanField
-from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
+from wtforms import StringField, SubmitField, PasswordField, IntegerField, TextAreaField, BooleanField, DateTimeField
+from wtforms.validators import DataRequired, Email, EqualTo, ValidationError, Optional
 from flask import flash
 from app.models import User
+import datetime
 
 class LoginForm(FlaskForm):
     email = StringField('E-mail', validators=[DataRequired(), Email()])
@@ -38,5 +39,6 @@ class MaintenanceForm(FlaskForm):
     car_id = IntegerField('Car ID', validators=[DataRequired()])
     maintenance_desc = TextAreaField('Description', validators=[DataRequired()])
     staff_id = IntegerField('Staff ID', validators=[DataRequired()])
-    date_started = DateTimeField('Date Started', validators=[DataRequired()])
-    date_finished = DateTimeField('Date Finished')
+    date_started = DateTimeField('Date Started', validators=[DataRequired()], default=datetime.datetime.now())
+    date_finished = DateTimeField('Date Finished', validators=[Optional()], default=None)
+    submit = SubmitField('Submit Record')
