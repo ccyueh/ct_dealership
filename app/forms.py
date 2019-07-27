@@ -4,16 +4,6 @@ from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 from flask import flash
 from app.models import User
 
-class TitleForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired()])
-    submit = SubmitField('Change Title')
-
-class ContactForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
-    email = StringField('E-mail', validators=[DataRequired(), Email()])
-    message = TextAreaField('Message', validators=[DataRequired()])
-    submit = SubmitField('Send Message')
-
 class LoginForm(FlaskForm):
     email = StringField('E-mail', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
@@ -21,13 +11,8 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 class RegisterForm(FlaskForm):
-    first_name = StringField('First Name', validators=[DataRequired()])
-    last_name = StringField('Last Name', validators=[DataRequired()])
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('E-mail', validators=[DataRequired(), Email()])
-    age = IntegerField('Age')
-    bio = TextAreaField('Biography')
-    url = StringField('Profile Picture URL')
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField('Re-type Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
@@ -44,18 +29,14 @@ class RegisterForm(FlaskForm):
             flash('Sorry but those credentials are already in use.')
             raise ValidationError('E-mail already taken.')
 
-class PostForm(FlaskForm):
-    tweet = StringField('What are you up to?', validators=[DataRequired()])
-    submit = SubmitField('Tweet')
-
 class CustomerForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
     submit = SubmitField('Display Cars')
 
 class MaintenanceForm(FlaskForm):
-    car_id = StringField('Car ID', validators=[DataRequired()])
-    maintenance_desc = StringField('Description', validators=[DataRequired()])
-    staff_id = StringField('Staff ID', validators=[DataRequired()])
+    car_id = IntegerField('Car ID', validators=[DataRequired()])
+    maintenance_desc = TextAreaField('Description', validators=[DataRequired()])
+    staff_id = IntegerField('Staff ID', validators=[DataRequired()])
     date_started = DateTimeField('Date Started', validators=[DataRequired()])
     date_finished = DateTimeField('Date Finished')

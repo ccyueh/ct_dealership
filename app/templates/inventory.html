@@ -1,0 +1,21 @@
+{% import 'bootstrap/wtf.html' as wtf %}
+{% extends 'base.html' %}
+
+{% block app_content %}
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      {% for row in car %}
+        {% if first == account.first_name and last == account.last_name %}
+        <div class="card small-margin">
+          <img src="http://placehold.it/25x25" alt="Profile Pic" class="post-img">
+          <div class="card-title tweet">{{ post.tweet }}</div>
+          <div class="card-subtitle date">{{ post.date_posted.date() }}</div>
+          <div class="card-subtitle handle">@{{ user.username }}</div>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div> <!-- ends row -->
+
+  </div> <!-- ends row -->
+
+{% endblock %}
