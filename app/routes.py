@@ -72,7 +72,10 @@ def customer():
 
 @app.route('/inventory', methods=['GET', 'POST'])
 def inventory(first='Goodcar', last='Dealership', title='Inventory'):
-    return render_template('inventory.html', first=first, last=last, title=title)
+    
+    rows = Car.query.join(Account, Car.account_id == Account.account_id).filter(Account.first_name == first, Account.last_name == last)
+
+    return render_template('inventory.html', rows=rows, first=first, last=last, title=title)
 
 @login_required
 @app.route('/maintenance', methods=['GET', 'POST'])
